@@ -7,9 +7,14 @@
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export JAVA_HOME=$(/usr/libexec/java_home)
-export YARN_BIN=$(yarn global bin)
-path=($HOME/bin $HOME/.local/bin $YARN_BIN $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
+
+typeset -U PATH path
+path=($HOME/bin $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
 export PATH
+
+export HISTSIZE=50000
+export SAVEHIST=100000
+setopt EXTENDED_HISTORY
 
 # aliases
 alias ..='cd ..'
@@ -36,3 +41,15 @@ alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 alias lprint='/usr/bin/lp -o nobanner -d $LPDEST'  # Assumes LPDEST is defined
 alias pjet='enscript -h -G -fCourier9 -d $LPDEST' # Pretty-print using enscript
+
+# npx aliases
+npx_aliases=(
+  'expo'
+  'expo-doctor',
+  'repomix'
+  'supabase'
+  'wrangler'
+)
+for alias in "${npx_aliases[@]}"; do
+  alias $alias="npx $alias"
+done
