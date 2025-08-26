@@ -8,7 +8,6 @@
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export JAVA_HOME=$(/usr/libexec/java_home)
 export YARN_BIN=$(yarn global bin)
-
 path=($HOME/bin $HOME/.local/bin $YARN_BIN $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
 export PATH
 
