@@ -15,6 +15,7 @@ export PATH
 export HISTSIZE=50000
 export SAVEHIST=100000
 setopt EXTENDED_HISTORY
+unsetopt SHARE_HISTORY
 
 # aliases
 alias ..='cd ..'
