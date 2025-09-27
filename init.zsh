@@ -6,7 +6,6 @@
 # ensure that 'custom' exists in the zmodules array in your .zimrc
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export JAVA_HOME=$(/usr/libexec/java_home)
 
 typeset -U PATH path
 path=($HOME/bin $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
@@ -16,6 +15,8 @@ export HISTSIZE=50000
 export SAVEHIST=100000
 setopt EXTENDED_HISTORY
 unsetopt SHARE_HISTORY
+
+. ~/.asdf/plugins/java/set-java-home.zsh
 
 # aliases
 alias ..='cd ..'
