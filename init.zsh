@@ -5,6 +5,7 @@
 # any custom stuff should go here.
 # ensure that 'custom' exists in the zmodules array in your .zimrc
 
+export DOCKER_HOST=unix:///var/run/docker.sock
 export ANDROID_HOME=$HOME/Library/Android/sdk
 
 typeset -U PATH path
@@ -53,5 +54,5 @@ npx_aliases=(
   'wrangler'
 )
 for alias in "${npx_aliases[@]}"; do
-  alias $alias="npx $alias"
+  alias $alias="npx ${alias}@latest"
 done
