@@ -51,6 +51,6 @@ npx_aliases=(
   'supabase'
   'wrangler'
 )
-for alias in "${npx_aliases}"; do
-  alias $alias="npx ${alias}"
+for alias in "${npx_aliases[@]}"; do
+  alias $alias="npx $alias"
 done
