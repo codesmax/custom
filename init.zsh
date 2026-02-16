@@ -17,8 +17,6 @@ export SAVEHIST=100000
 setopt EXTENDED_HISTORY
 unsetopt SHARE_HISTORY
 
-. ~/.asdf/plugins/java/set-java-home.zsh
-
 # aliases
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -48,11 +46,11 @@ alias pjet='enscript -h -G -fCourier9 -d $LPDEST' # Pretty-print using enscript
 # npx aliases
 npx_aliases=(
   'expo'
-  'expo-doctor',
+  'expo-doctor'
   'repomix'
   'supabase'
   'wrangler'
 )
-for alias in "${npx_aliases[@]}"; do
-  alias $alias="npx ${alias}@latest"
+for alias in "${npx_aliases}"; do
+  alias $alias="npx ${alias}"
 done
