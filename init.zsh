@@ -9,7 +9,7 @@ export DOCKER_HOST=unix:///var/run/docker.sock
 export ANDROID_HOME=$HOME/Library/Android/sdk
 
 typeset -U PATH path
-path=($HOME/bin $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
+path=($HOME/bin $HOME/.sandbox $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
 export PATH
 
 export HISTSIZE=50000
@@ -54,3 +54,8 @@ npx_aliases=(
 for alias in "${npx_aliases[@]}"; do
   alias $alias="npx $alias"
 done
+
+# sandbox aliases
+alias sb='sandbox'
+alias claude='sandbox claude'
+alias codex='sandbox codex'
