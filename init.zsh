@@ -6,7 +6,7 @@
 # ensure that 'custom' exists in the zmodules array in your .zimrc
 
 export DOCKER_HOST=unix:///var/run/docker.sock
-export HOST_PRIVATE_IP=$(ipconfig getifaddr en0)
+export HOST_PRIVATE_IP=127.0.0.1
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export GPG_TTY=$(tty)
 export NODE_OPTIONS="--max-old-space-size=6144"
