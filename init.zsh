@@ -6,10 +6,13 @@
 # ensure that 'custom' exists in the zmodules array in your .zimrc
 
 export DOCKER_HOST=unix:///var/run/docker.sock
+export HOST_PRIVATE_IP=$(ipconfig getifaddr en0)
 export ANDROID_HOME=$HOME/Library/Android/sdk
+export GPG_TTY=$(tty)
+export NODE_OPTIONS="--max-old-space-size=6144"
 
 typeset -U PATH path
-path=($HOME/bin $HOME/.sandbox $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
+path=($HOME/bin $HOME/.boxout $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
 export PATH
 
 export HISTSIZE=50000
@@ -56,6 +59,6 @@ for alias in "${npx_aliases[@]}"; do
 done
 
 # sandbox aliases
-alias sb='sandbox'
-alias claude='sandbox claude'
-alias codex='sandbox codex'
+alias bo='boxout'
+alias claude='bo claude'
+alias codex='bo codex'
