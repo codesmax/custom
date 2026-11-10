@@ -5,20 +5,28 @@
 # any custom stuff should go here.
 # ensure that 'custom' exists in the zmodules array in your .zimrc
 
-export DOCKER_HOST=unix:///var/run/docker.sock
-export HOST_PRIVATE_IP=127.0.0.1
+export DOCKER_HOST=unix://$HOME/.colima/default/docker.sock
 export ANDROID_HOME=$HOME/Library/Android/sdk
+export LIBPQ_HOME=/opt/homebrew/opt/libpq
 export GPG_TTY=$(tty)
 export NODE_OPTIONS="--max-old-space-size=6144"
 
+# development environment
+export HOST_PRIVATE_IP=127.0.0.1        # IP for container port mapping
+export MW_SERVER=http://localhost:8080  # MediaWiki server URL
+
 typeset -U PATH path
-path=($HOME/bin $HOME/.boxout $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $path)
+path=($HOME/bin $HOME/.boxout $ANDROID_HOME/emulator $ANDROID_HOME/platform-tools $LIBPQ_HOME/bin $path)
 export PATH
 
 export HISTSIZE=50000
 export SAVEHIST=100000
 setopt EXTENDED_HISTORY
 unsetopt SHARE_HISTORY
+
+# zsh integrations
+eval "$(mise activate zsh)"
+eval "$(zoxide init zsh)"
 
 # aliases
 alias ..='cd ..'
@@ -36,26 +44,25 @@ alias path='echo -e ${PATH//:/\\n}'
 alias du='du -h'
 alias df='df -h'
 
-alias ctail="colortail -k $HOME/.colortail"
-alias mtail="multitail"
 alias brake='bundle exec rake'
 alias tunnel='autossh -M 20000 -nNT tunnel'
 alias rmdirs.empty='find . -depth -type d -empty -exec rmdir -v {} \;'
 alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
-alias lprint='/usr/bin/lp -o nobanner -d $LPDEST'  # Assumes LPDEST is defined
-alias pjet='enscript -h -G -fCourier9 -d $LPDEST' # Pretty-print using enscript
+alias supabase-clean='docker rmi $(docker images --filter "reference=public.ecr.aws/supabase/*" -q) 2>/dev/null'
+alias wipe-npx='echo "Deleting npx cache..." && rm -rf ~/.npm/_npx && echo "Done."'
+alias wipe-supabase='docker volume ls --format "{{.Name}}" | grep "^supabase_" | xargs docker volume rm'
+alias passport-sheet='f() { gm montage -tile 3x2 -geometry 600x600+0+0 -density 300 "$1" "$1" "$1" "$1" "$1" "$1" ${1%.*}-passport-sheet.jpg; }; f'
 
 # npx aliases
-npx_aliases=(
+npx_packages=(
   'expo'
-  'expo-doctor'
-  'repomix'
-  'supabase'
-  'wrangler'
+  'expo-doctor@latest'
+  'supabase@latest'
+  'wrangler@latest'
 )
-for alias in "${npx_aliases[@]}"; do
-  alias $alias="npx $alias"
+for package in "${npx_packages[@]}"; do
+  alias ${package%@*}="npx ${package}"
 done
 
 # sandbox aliases
